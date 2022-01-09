@@ -1,0 +1,1 @@
+"build\Debug\tocmake.exe" -s example -o output
