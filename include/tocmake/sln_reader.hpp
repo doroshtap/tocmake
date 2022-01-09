@@ -7,7 +7,7 @@
 namespace tocmake {
     class sln_reader {
     public:
-        sln_reader(std::wstring dirpath);
+        sln_reader(std::wstring dirpath, bool answer_yes = false);
 
         std::map<std::wstring, std::wstring> collect_projects();
     private:

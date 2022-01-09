@@ -4,7 +4,12 @@
 #include <format>
 
 int main(int argc, char* argv[]) {
-    tocmake::ArgumentParser program("tcm", "0.1.0");
+    tocmake::ArgumentParser program("tcm", "0.1.1");
+
+    program.add_argument("-y", "--yes")
+        .help("skip all 'questions'")
+        .default_value(false)
+        .implicit_value(true);
 
     program.add_argument("-s", "--source")
         .required()
@@ -34,7 +39,7 @@ int main(int argc, char* argv[]) {
         tocmake::log_err(L"source directory(`{}`) can't be an output directory(`{}`).", src, out); // Automatically exits
     }
 
-    tocmake::sln_reader sln(src);
+    tocmake::sln_reader sln(src, program.get<bool>("-y"));
     auto projects = sln.collect_projects();
 
     for (const auto& project : projects) {

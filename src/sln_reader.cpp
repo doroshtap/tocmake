@@ -114,7 +114,7 @@ inline bool ends_with(const std::wstring& str, const std::wstring& ending) {
     }
 }
 
-tocmake::sln_reader::sln_reader(std::wstring dirpath) {
+tocmake::sln_reader::sln_reader(std::wstring dirpath, bool answer_yes) {
     /*
     dirpath/
         solution.sln
@@ -140,17 +140,21 @@ tocmake::sln_reader::sln_reader(std::wstring dirpath) {
 
     if (paths.size() == 0) log_err(L"Not found any .sln file in directory!");
     else if (paths.size() == 1) {
-        std::wcout << ansi::foreground_bold << ansi::foreground_blue << L"[INFO]: " << ansi::reset << L"Is `" + paths[0] + L"` a right solution file? [y/n] ";
-        std::wstring answer;
-        std::wcin >> answer;
-        std::transform(answer.begin(), answer.end(), answer.begin(), [](wchar_t c){return std::towlower(c);});
-        if (answer == L"y" || answer == L"yes") {
-            log_ok(L"Solution file has been found");
-            this->solution_path = paths[0];
-        } else if (answer == L"n" || answer == L"no") {
-            log_err(L"Right solution file has not been found");
+        if (!answer_yes) {
+            std::wcout << ansi::foreground_bold << ansi::foreground_blue << L"[INFO]: " << ansi::reset << L"Is `" + paths[0] + L"` a right solution file? [y/n] ";
+            std::wstring answer;
+            std::wcin >> answer;
+            std::transform(answer.begin(), answer.end(), answer.begin(), [](wchar_t c){return std::towlower(c);});
+            if (answer == L"y" || answer == L"yes") {
+                log_ok(L"Solution file has been found");
+                this->solution_path = paths[0];
+            } else if (answer == L"n" || answer == L"no") {
+                log_err(L"Right solution file has not been found");
+            } else {
+                log_err(L"Unknown option selected");
+            }
         } else {
-            log_err(L"Unknown option selected");
+            this->solution_path = paths[0];
         }
     } else {
         for (int i = 0; i < paths.size(); i++) {

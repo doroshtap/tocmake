@@ -13,5 +13,7 @@ run
 ### In this repo you can find 'example' folder with an example of basic Visual Studio projects.
 
 # TODO:
-- Support for 'utility' project type
-- Creating directories inside project(test/test.cpp won't be created in current version kinda like BUG, but just 'test.cpp' will be.)
+[-] Flag '-y/--yes', if there is only one .sln file in folder and it's 100% right file.
+[ ] Flag '-V/--verbose', toggle verbosity, at this moment it logs all what it can, but it need to be like that only in "verbose" mode.
+[ ] Support for 'utility' project type
+[ ] Creating directories inside project(test/test.cpp won't be created in current version kinda like BUG, but just 'test.cpp' will be.)
