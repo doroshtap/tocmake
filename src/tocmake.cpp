@@ -10,6 +10,11 @@ int main(int argc, char* argv[]) {
         .help("skip all 'questions'")
         .default_value(false)
         .implicit_value(true);
+    
+    program.add_argument("-V", "--verbose")
+        .help("be verbose")
+        .default_value(false)
+        .implicit_value(true);
 
     program.add_argument("-s", "--source")
         .required()
@@ -47,13 +52,17 @@ int main(int argc, char* argv[]) {
         tocmake::project_reader proj(project.second);
         
         auto type = proj.get_project_type();
-        if (type == tocmake::project_type::application) tocmake::log_ok(L"Application!");
-        else if (type == tocmake::project_type::static_library) tocmake::log_ok(L"Static Library!");
-        else if (type == tocmake::project_type::dynamic_library) tocmake::log_ok(L"Dynamic Library!");
+        if (program.get<bool>("-V")) { // Verbose
+            if (type == tocmake::project_type::application) tocmake::log_info(L"Project Type: Application");
+            else if (type == tocmake::project_type::static_library) tocmake::log_info(L"Project Type: Static Library");
+            else if (type == tocmake::project_type::dynamic_library) tocmake::log_info(L"Project Type: Dynamic Library");
+        }
         auto sources = proj.get_sources();
 
-        for (const auto& src : sources) {
-            tocmake::log_ok(L"Found source file: {}", src);
+        if (program.get<bool>("-V")) { // Verbose
+            for (const auto& src : sources) {
+                tocmake::log_ok(L"Found source file: {}", src);
+            }
         }
 
         tocmake::create_dir(out);

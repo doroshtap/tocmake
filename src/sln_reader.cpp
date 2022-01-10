@@ -146,7 +146,7 @@ tocmake::sln_reader::sln_reader(std::wstring dirpath, bool answer_yes) {
             std::wcin >> answer;
             std::transform(answer.begin(), answer.end(), answer.begin(), [](wchar_t c){return std::towlower(c);});
             if (answer == L"y" || answer == L"yes") {
-                log_ok(L"Solution file has been found");
+                // log_ok(L"Solution file has been found");
                 this->solution_path = paths[0];
             } else if (answer == L"n" || answer == L"no") {
                 log_err(L"Right solution file has not been found");
