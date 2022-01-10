@@ -143,6 +143,8 @@
     <ClCompile Include="some.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="folder\yoman.h" />
+    <ClInclude Include="folder\yoman\msg.h" />
     <ClInclude Include="some.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

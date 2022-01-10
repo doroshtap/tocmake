@@ -10,12 +10,17 @@ static std::wstring vector_to_string(std::vector<std::wstring> sources) {
     if (sources.size() == 0) {
         tocmake::log_err(L"No sources in project selected!");
     } else if (sources.size() == 1) {
-        return sources[0];
+        std::wstring res = sources[0];
+        std::replace(res.begin(), res.end(), '\\', '/');
+        return res;
     } else {
         std::wstring result = sources[0];
+        std::replace(result.begin(), result.end(), '\\', '/');
 
         for (std::size_t i = 1; i < sources.size(); i++) {
-            result += L' ' + sources[i];
+            std::wstring temp = sources[i];
+            std::replace(temp.begin(), temp.end(), '\\', '/');
+            result += L' ' + temp;
         }
 
         return result;
@@ -63,7 +68,10 @@ void tocmake::cmake_generator::generate() {
     // CHECK TODO LATER!!!!!
     for (const auto& src : sources) {
         std::wstring source = std::format(L"{}\\{}", input_dir, src);
-        std::wstring target = std::format(L"{}\\{}", output_dir, std::wstring(std::filesystem::path(src).filename()));
+        std::wstring target = std::format(L"{}\\{}", output_dir, src);
+        
+        std::filesystem::create_directories(std::filesystem::path(target).parent_path());
+
         tocmake::copy_file(source, target);
     }
 }

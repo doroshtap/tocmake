@@ -4,7 +4,7 @@
 #include <format>
 
 int main(int argc, char* argv[]) {
-    tocmake::ArgumentParser program("tcm", "0.1.1");
+    tocmake::ArgumentParser program("tcm", "0.2.0");
 
     program.add_argument("-y", "--yes")
         .help("skip all 'questions'")

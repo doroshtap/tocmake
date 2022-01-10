@@ -1,6 +1,7 @@
 #include "some.h"
+#include "folder/yoman.h"
 #include <iostream>
 
 void print_smth() {
-	std::cout << "smth" << std::endl;
+	std::cout << get_message() << std::endl;
 }

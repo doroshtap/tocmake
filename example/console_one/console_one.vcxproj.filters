@@ -26,5 +26,11 @@
     <ClInclude Include="some.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="folder\yoman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="folder\yoman\msg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
